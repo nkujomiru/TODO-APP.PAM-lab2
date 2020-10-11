@@ -5,10 +5,10 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import Screens from "./screens/Screens"
+import Screens from "./screens/ScreenNames"
 import LandingScreen from "./screens/Landing";
 import HomeScreen from "./screens/Home";
-import Landing from "./screens/Landing";
+import NewTaskScreen from "./screens/CreateNewTask";
 
 const RootStack = createStackNavigator();
 
@@ -23,6 +23,9 @@ export default function App() {
         <RootStack.Screen 
           name={Screens.Landing} 
           component={LandingScreen} />
+        <RootStack.Screen 
+          name={Screens.NewTask} 
+          component={NewTaskScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
   );

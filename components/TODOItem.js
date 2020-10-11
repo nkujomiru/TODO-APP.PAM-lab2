@@ -1,8 +1,10 @@
 import React, {useContext} from 'react';
 import {View, Text, StyleSheet, FlatList, Button, TouchableOpacity} from 'react-native';
 import { Feather } from '@expo/vector-icons'
+import Colours from "../screens/Colours"
+import ScreenNames from "../screens/ScreenNames"
 
-const TODOItem = ({item}) => {
+const TODOItem = ({item, navigation}) => {
     return (
       // TODO add complete task switch
       <View style={styles.row}>
@@ -10,7 +12,7 @@ const TODOItem = ({item}) => {
           {item.title} - {item.id}
         </Text>
         <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity onPress={() => console.log("edit clicked")}>
+          <TouchableOpacity onPress={()=> navigation.navigate(ScreenNames.NewTask, {item})}>
             <Feather name="edit-3" style={styles.icon} color="#64e986" />
           </TouchableOpacity>
           <TouchableOpacity
@@ -36,9 +38,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingTop:7,
         paddingBottom: 1,
-        backgroundColor: "#f2e3a5",
+        backgroundColor: Colours.Accent,
         borderBottomWidth: 1,
-        borderColor: '#FAA85E',
+        borderColor: Colours.Border,
         paddingHorizontal: 7,
     },
     title:{
