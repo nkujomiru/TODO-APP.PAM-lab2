@@ -12,24 +12,28 @@ import NewTaskScreen from "./screens/CreateNewTask";
 
 import { Provider } from "react-redux";
 import * as Store from "./store/Store";
+import { PersistGate } from 'redux-persist/integration/react';
 
 const store = Store.getStore()
+const persistor = Store.getPersistor()
 const RootStack = createStackNavigator();
 
 export default function App() {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <RootStack.Navigator initialRouteName={Screens.Home}>
-          <RootStack.Screen
-            name={Screens.Home}
-            component={HomeScreen}
-            options={{ title: "TODO List" }}
-          />
-          <RootStack.Screen name={Screens.Landing} component={LandingScreen} />
-          <RootStack.Screen name={Screens.NewTask} component={NewTaskScreen} />
-        </RootStack.Navigator>
-      </NavigationContainer>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <RootStack.Navigator initialRouteName={Screens.Home}>
+            <RootStack.Screen
+              name={Screens.Home}
+              component={HomeScreen}
+              options={{ title: "TODO List" }}
+            />
+            <RootStack.Screen name={Screens.Landing} component={LandingScreen} />
+            <RootStack.Screen name={Screens.NewTask} component={NewTaskScreen} />
+          </RootStack.Navigator>
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 }
