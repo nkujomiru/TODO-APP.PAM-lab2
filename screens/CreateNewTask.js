@@ -1,28 +1,48 @@
-import React, {useContext, useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
-import Screens from "./ScreenNames"
-import Colours from "./Colours"
+import React, { useContext, useState } from "react";
+import { View, Text, StyleSheet, TextInput, Button, Alert} from "react-native";
+import Screens from "./ScreenNames";
+import Colours from "./Colours";
 
-const CreateNewTask = ({navigation, item}) =>{
+import { connect } from "react-redux";
+import * as taskActions from "../store/taskActions";
 
-    const [title, setTitle] = useState( (item?.title ) ? item.title : '' );
-    const [text, setText] = useState('');
+const CreateNewTask = ({ route, navigation, taskList, dispatch }) => {
 
-    return(
-        <View style= {styles.container}>
-            <Text style= {styles.label}>Enter Title</Text>
-            <TextInput value = {title} onChangeText = {(text) => setTitle(text)}  style= {styles.input}/>
-            <Text style= {styles.label}>Other Notes</Text>
-            <TextInput value = {text} onChangeText = {(text) => setText(text)}  style= {styles.input}/>
-            <Button title= "Done"
-            onPress= {() =>{
-                // dispatch(actions.addBlogPost(title, text));
-                navigation.navigate(Screens.Home);
-                }}/>
-        </View>
-    );
-}
+  // console.log(taskList)
+  let item = null;
+  if (typeof route?.params?.item !== "undefined" && route?.params?.item != null)
+    item = route.params.item;
 
+  const [title, setTitle] = useState(item?.title ?? "");
+  const [text, setText] = useState(item?.content ?? "");
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.label}>Enter Title</Text>
+      <TextInput
+        value={title}
+        onChangeText={(text) => setTitle(text)}
+        style={styles.input}
+      />
+      <Text style={styles.label}>Other Notes</Text>
+      <TextInput
+        value={text}
+        onChangeText={(text) => setText(text)}
+        style={styles.input}
+      />
+      <Button
+        title="Done"
+        onPress={() => {
+          console.log('Deleting-CreateNewTask');
+          dispatch(taskActions.deleteTask(item?.id));
+          console.log('Adding-CreateNewTask');
+          dispatch(taskActions.addTask(title, text));
+          navigation.navigate(Screens.Home);
+        }}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   label: {
@@ -43,7 +63,9 @@ const styles = StyleSheet.create({
   },
 });
 
-
-
-// export default connect((state)=> ({}))(CreateScreen);
-export default CreateNewTask;
+const mapStateToProps = (state) => {
+  return {
+    taskList: state.tasks.taskList,
+  };
+};
+export default connect(mapStateToProps)(CreateNewTask);

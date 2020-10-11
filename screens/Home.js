@@ -1,18 +1,30 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+
+import {connect } from 'react-redux';
+
 import TODOItem from '../components/TODOItem'
 import FloatingButton from '../components/FloatingButton'
 import ScreenNames from "./ScreenNames"
 import Colours from "./Colours"
 
-export default HomeScreen = ({navigation}) => (
-	<View style={styles.container}>
-    <TODOItem item = {{title: 'TestPost',content:'testing...', id: 1 }} navigation={navigation}></TODOItem>
-    <FloatingButton onPressAction = {()=> navigation.navigate(ScreenNames.NewTask)}/>
-	</View>
+const HomeScreen = ({ navigation, taskList, dispatch }) => (
+  <View style={styles.container}>
+
+    <FlatList
+      data={taskList}
+      keyExtractor={(task) => task.id.toString()}
+      renderItem={({ item }) => {
+        return <TODOItem item={item} navigation={navigation} dispatch={dispatch}></TODOItem>;
+      }}
+    />
+
+    <FloatingButton
+      onPressAction={() => navigation.navigate(ScreenNames.NewTask)}
+    />
+    {/* <Text> {console.log(taskList) } </Text> */}
+  </View>
 );
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -23,3 +35,13 @@ const styles = StyleSheet.create({
     backgroundColor: Colours.Background,
   },
 });
+
+const mapStateToProps = (state) =>{
+  // console.log(state);
+  return {
+      taskList: state.tasks.taskList
+  }
+};
+
+
+export default connect(mapStateToProps)(HomeScreen);

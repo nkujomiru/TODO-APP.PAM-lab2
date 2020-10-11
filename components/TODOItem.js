@@ -3,13 +3,14 @@ import {View, Text, StyleSheet, FlatList, Button, TouchableOpacity} from 'react-
 import { Feather } from '@expo/vector-icons'
 import Colours from "../screens/Colours"
 import ScreenNames from "../screens/ScreenNames"
+import * as taskActions from "../store/taskActions"
 
-const TODOItem = ({item, navigation}) => {
+const TODOItem = ({item, navigation, dispatch}) => {
     return (
       // TODO add complete task switch
       <View style={styles.row}>
         <Text style={styles.title}>
-          {item.title} - {item.id}
+          {item.title}
         </Text>
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity onPress={()=> navigation.navigate(ScreenNames.NewTask, {item})}>
@@ -17,12 +18,7 @@ const TODOItem = ({item, navigation}) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() =>
-              // dispatch({
-              //     type: 'delete_blogPost',
-              //     payload: item.id
-              // })
-              //   dispatch(actions.deletePost(item.id))
-              console.log("trash clicked")
+                dispatch(taskActions.deleteTask(item.id))
             }
           >
             <Feather name="trash" style={styles.icon} color="#FF5500" />
