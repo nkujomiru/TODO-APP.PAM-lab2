@@ -9,6 +9,7 @@ export default TaskCalendar = ({ taskList, selectedDate, setSelectedDate }) => {
   taskList.forEach(task => { 
     myMarkedDays[`${task.date.dateString}`] = {marked: true, dotColor: 'red'}
   });
+  myMarkedDays[`${selectedDate.dateString}`] = {selected: true, selectedColor: 'blue'}
 
   return (
     <CustomCalendar

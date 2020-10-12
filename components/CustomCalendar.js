@@ -7,7 +7,7 @@ export default CustomCalendar = ({onDayPressAction, onDayLongPressAction, marked
     <Calendar
       // Handler which gets executed on day press. Default = undefined
       onDayPress={(day) => {
-        console.log("selected day", day);
+        // console.log("selected day", day);
         onDayPressAction && onDayPressAction(day);
       }}
       // Handler which gets executed on day long press. Default = undefined

@@ -13,21 +13,22 @@ import * as dates from"../helpers/dateHelpers"
 
 const HomeScreen = ({ navigation, taskList, dispatch }) => {
   
-  const [selectedDate, setSelectedDate] = useState(dates.getCurrentDate()); // TODO use Today date object
+  const [selectedDate, setSelectedDate] = useState(dates.getCurrentDate());
 
   return(
   
   <View style={styles.container}>
 
     <FlatList
-      data={taskList}
+      data={taskList.filter((taskList) => taskList.date.dateString == selectedDate.dateString)}
       keyExtractor={(task) => task.id.toString()}
       renderItem={({ item }) => {
         return <TODOItem item={item} navigation={navigation} dispatch={dispatch}></TODOItem>;
       }}
     />
     <TaskCalendar style={{flex:1}} 
-    setSelectedDate={taskList, setSelectedDate}
+    selectedDate={selectedDate}
+    setSelectedDate={setSelectedDate}
     taskList={taskList}/>
 
     <FloatingButton
