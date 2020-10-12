@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, FlatList, Button, TouchableOpacity} from 'react-native';
 import { Feather } from '@expo/vector-icons'
 import Colours from "../screens/Colours"

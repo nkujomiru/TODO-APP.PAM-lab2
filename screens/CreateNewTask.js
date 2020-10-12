@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button, Alert} from "react-native";
 import AddTaskCalendar from "../components/AddTaskCalendar"
 import * as dates from"../helpers/dateHelpers" 
@@ -23,29 +23,38 @@ const CreateNewTask = ({ route, navigation, dispatch }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Enter Title</Text>
-      <TextInput
-        value={title}
-        onChangeText={(text) => setTitle(text)}
-        style={styles.input}
+      <View>
+        <View style={{ marginVertical: 7 }}>
+          <Text style={styles.label}>Enter Title</Text>
+          <TextInput
+            value={title}
+            onChangeText={(text) => setTitle(text)}
+            style={styles.input}
+          />
+        </View>
+        <View>
+          <Text style={styles.label}>Other Notes</Text>
+          <TextInput
+            value={text}
+            onChangeText={(text) => setText(text)}
+            style={styles.input}
+          />
+        </View>
+      </View>
+      <View style={{flex:1}}/>
+      <AddTaskCalendar
+        style={{ flex: 1, allignItems: "flex-center" }}
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+        task={item}
       />
-      <Text style={styles.label}>Other Notes</Text>
-      <TextInput
-        value={text}
-        onChangeText={(text) => setText(text)}
-        style={styles.input}
-      />
-    <AddTaskCalendar
-    selectedDate = {selectedDate}
-    setSelectedDate = {setSelectedDate}
-    task = {item}
-    />
-      <Button
+      <Button 
+        color="green"
         title="Done"
         onPress={() => {
-          console.log('Deleting-CreateNewTask');
+          console.log("Deleting-CreateNewTask");
           dispatch(taskActions.deleteTask(item?.id));
-          console.log('Adding-CreateNewTask');
+          console.log("Adding-CreateNewTask");
           dispatch(taskActions.addTask(title, text, selectedDate));
           navigation.navigate(Screens.Home);
         }}
@@ -56,7 +65,7 @@ const CreateNewTask = ({ route, navigation, dispatch }) => {
 
 const styles = StyleSheet.create({
   label: {
-    fontSize: 20,
+    fontSize: 26,
     marginBottom: 3,
   },
   input: {
@@ -67,10 +76,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "flex-start",
+    justifyContent: "space-between",
     alignItems: "stretch",
     backgroundColor: Colours.Background,
-  },
+  }
 });
 
 const mapStateToProps = (state) => {
