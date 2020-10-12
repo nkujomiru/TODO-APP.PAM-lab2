@@ -8,9 +8,9 @@ export const deleteTask = (TaskId)=>(
     }
 );
 
-export const addTask = (title, content) => (
+export const addTask = (title, content, date) => (
     {
         type: ADD_Task, 
-        payload:{title, content}
+        payload:{title, content, date}
     }
 );

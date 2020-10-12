@@ -22,8 +22,9 @@ const TaskReducer = (state = initialState, action) => {
             id: uuid.v1(),
             title: action.payload.title
               ? `${action.payload.title}`
-              : `Task nr ${state.length + 1}`,
+              : `Task nr ${state.taskList.length + 1}`,
             content: action.payload.content,
+            date: action.payload.date
           },
           ...state.taskList
         ],

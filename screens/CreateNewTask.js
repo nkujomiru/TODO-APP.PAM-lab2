@@ -1,20 +1,25 @@
 import React, { useContext, useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button, Alert} from "react-native";
+import AddTaskCalendar from "../components/AddTaskCalendar"
+import * as dates from"../helpers/dateHelpers" 
 import Screens from "./ScreenNames";
 import Colours from "./Colours";
 
 import { connect } from "react-redux";
 import * as taskActions from "../store/taskActions";
 
-const CreateNewTask = ({ route, navigation, taskList, dispatch }) => {
+const CreateNewTask = ({ route, navigation, dispatch }) => {
 
-  // console.log(taskList)
   let item = null;
   if (typeof route?.params?.item !== "undefined" && route?.params?.item != null)
-    item = route.params.item;
+    item = route.params.item
+  else item = { title: "", content: "", id: -1, date: dates.getCurrentDate() }
 
-  const [title, setTitle] = useState(item?.title ?? "");
-  const [text, setText] = useState(item?.content ?? "");
+    const [title, setTitle] = useState(item?.title ?? "");
+    const [text, setText] = useState(item?.content ?? "");
+    const [selectedDate, setSelectedDate] = useState(item.date);
+    console.log(selectedDate)
+
 
   return (
     <View style={styles.container}>
@@ -30,13 +35,18 @@ const CreateNewTask = ({ route, navigation, taskList, dispatch }) => {
         onChangeText={(text) => setText(text)}
         style={styles.input}
       />
+    <AddTaskCalendar
+    selectedDate = {selectedDate}
+    setSelectedDate = {setSelectedDate}
+    task = {item}
+    />
       <Button
         title="Done"
         onPress={() => {
           console.log('Deleting-CreateNewTask');
           dispatch(taskActions.deleteTask(item?.id));
           console.log('Adding-CreateNewTask');
-          dispatch(taskActions.addTask(title, text));
+          dispatch(taskActions.addTask(title, text, selectedDate));
           navigation.navigate(Screens.Home);
         }}
       />
