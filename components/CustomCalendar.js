@@ -2,9 +2,10 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { Calendar } from "react-native-calendars";
 
-export default CustomCalendar = ({onDayPressAction, onDayLongPressAction, markedDays}) => {
+export default CustomCalendar = ({onDayPressAction, onDayLongPressAction, markedDays, style}) => {
   return (
-    <Calendar
+    <Calendar style = {style}
+    
       // Handler which gets executed on day press. Default = undefined
       onDayPress={(day) => {
         // console.log("selected day", day);

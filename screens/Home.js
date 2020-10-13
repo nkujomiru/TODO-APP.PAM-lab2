@@ -1,5 +1,5 @@
 import React, { useState, } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Dimensions } from 'react-native';
 
 import {connect } from 'react-redux';
 
@@ -9,18 +9,29 @@ import ScreenNames from "./ScreenNames"
 import Colours from "./Colours"
 
 import TaskCalendar from "../components/TaskCalendar"
-import * as dates from"../helpers/dateHelpers" 
+import * as dates from "../helpers/dateHelpers" 
+import * as filters from "../helpers/taskFilters"
+import TextInput from "../components/TextInput"
 
 const HomeScreen = ({ navigation, taskList, dispatch }) => {
   
   const [selectedDate, setSelectedDate] = useState(dates.getCurrentDate());
+  const [filter, setFilter] = useState (filters.EmptyFilter);
+  const [searchText, setSearchText] = useState ('');
+  
+  
+  const EmptyFilter = () => (true)
 
   return(
   
   <View style={styles.container}>
 
+    <TextInput
+    term = {searchText}
+    onChange = {setSearchText}
+    />
     <FlatList
-      data={taskList.filter((taskList) => taskList.date.dateString == selectedDate.dateString)}
+      data={taskList.filter((task) => filters.DateNameFilter(task, selectedDate, searchText))}
       keyExtractor={(task) => task.id.toString()}
       renderItem={({ item }) => {
         return <TODOItem item={item} navigation={navigation} dispatch={dispatch}></TODOItem>;
@@ -44,6 +55,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: "stretch",
     backgroundColor: Colours.Background,
+    minHeight: Dimensions.get('window').height,
   },
 });
 

@@ -10,7 +10,7 @@ export default AddTaskCalendar = ({ selectedDate, setSelectedDate }) => {
     myMarkedDays[`${selectedDate.dateString}`] = {selected: true, selectedColor: 'blue'}
 
   return (
-    <CustomCalendar
+    <CustomCalendar style = {styles.Calendar}
       onDayPressAction={(date) => setSelectedDate(date)}
       onDayLongPressAction={(date) => setSelectedDate(date)}
       markedDays = {myMarkedDays}
@@ -20,5 +20,6 @@ export default AddTaskCalendar = ({ selectedDate, setSelectedDate }) => {
 
 
 const styles = StyleSheet.create({
-
+  Calendar: {
+  },
 });

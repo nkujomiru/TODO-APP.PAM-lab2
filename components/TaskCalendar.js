@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import CustomCalendar from "./CustomCalendar"
 
 export default TaskCalendar = ({ taskList, selectedDate, setSelectedDate }) => {
@@ -11,7 +11,7 @@ export default TaskCalendar = ({ taskList, selectedDate, setSelectedDate }) => {
   myMarkedDays[`${selectedDate.dateString}`] = {selected: true, selectedColor: 'blue'}
 
   return (
-    <CustomCalendar
+    <CustomCalendar style = {styles.Calendar}
       onDayPressAction={(date) => setSelectedDate(date)}
       onDayLongPressAction={(date) => setSelectedDate(date)}
       markedDays = {myMarkedDays}
@@ -21,5 +21,11 @@ export default TaskCalendar = ({ taskList, selectedDate, setSelectedDate }) => {
 
 
 const styles = StyleSheet.create({
-
+  Calendar: {
+    position: "absolute",
+    height: 380,
+    width: "100%",
+    left: 0,
+    bottom: 0,
+  },
 });
