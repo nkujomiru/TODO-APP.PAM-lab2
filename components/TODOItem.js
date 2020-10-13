@@ -4,6 +4,7 @@ import { Feather } from '@expo/vector-icons'
 import Colours from "../screens/Colours"
 import ScreenNames from "../screens/ScreenNames"
 import * as taskActions from "../store/taskActions"
+import NotificationHandler from "../services/Notifications"
 
 const TODOItem = ({item, navigation, dispatch}) => {
     return (
@@ -17,11 +18,11 @@ const TODOItem = ({item, navigation, dispatch}) => {
             <Feather name="edit-3" style={styles.icon} color="#64e986" />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() =>
-                dispatch(taskActions.deleteTask(item.id))
-            }
-          >
-            <Feather name="trash" style={styles.icon} color="#FF5500" />
+            onPress={() => {
+              NotificationHandler.cancelNotification(task.notification)
+              dispatch(taskActions.deleteTask(item.id))
+            } } >
+          <Feather name="trash" style={styles.icon} color="#FF5500" />
           </TouchableOpacity>
         </View>
       </View>

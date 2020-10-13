@@ -11,10 +11,7 @@ const initialState = {
 
 const TaskReducer = (state = initialState, action) => {
   switch (action.type) {
-    case Actions.ADD_Task:
-        {
-            console.log('Added');
-
+    case Actions.ADD_Task: {
       return {
         ...state,
         taskList: [
@@ -24,15 +21,22 @@ const TaskReducer = (state = initialState, action) => {
               ? `${action.payload.title}`
               : `Task nr ${state.taskList.length + 1}`,
             content: action.payload.content,
-            date: action.payload.date
+            date: action.payload.date,
+            notification: action.payload.notification ?? null,
           },
-          ...state.taskList
+          ...state.taskList,
         ],
-      };}
+      };
+    }
 
     case Actions.DELETE_Task:
-        console.log('Deleted');
-      return {...state,taskList: state.taskList.filter((taskList) => taskList.id !== action.payload)};
+      console.log("Deleted");
+      return {
+        ...state,
+        taskList: state.taskList.filter(
+          (taskList) => taskList.id !== action.payload
+        ),
+      };
 
     default: {
       return state;

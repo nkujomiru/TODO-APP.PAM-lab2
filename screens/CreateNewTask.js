@@ -8,6 +8,8 @@ import Colours from "./Colours";
 import { connect } from "react-redux";
 import * as taskActions from "../store/taskActions";
 
+import NotificationHandler from "../services/Notifications"
+
 const CreateNewTask = ({ route, navigation, dispatch }) => {
 
   let item = null;
@@ -18,8 +20,6 @@ const CreateNewTask = ({ route, navigation, dispatch }) => {
     const [title, setTitle] = useState(item?.title ?? "");
     const [text, setText] = useState(item?.content ?? "");
     const [selectedDate, setSelectedDate] = useState(item.date);
-    console.log(selectedDate)
-
 
   return (
     <View style={styles.container}>
@@ -51,11 +51,10 @@ const CreateNewTask = ({ route, navigation, dispatch }) => {
       <Button 
         color="green"
         title="Done"
-        onPress={() => {
-          console.log("Deleting-CreateNewTask");
+        onPress={async () => {
           dispatch(taskActions.deleteTask(item?.id));
-          console.log("Adding-CreateNewTask");
-          dispatch(taskActions.addTask(title, text, selectedDate));
+          notification = await NotificationHandler.addNotification(title, text, selectedDate)
+          dispatch(taskActions.addTask(title, text, selectedDate, notification));
           navigation.navigate(Screens.Home);
         }}
       />
