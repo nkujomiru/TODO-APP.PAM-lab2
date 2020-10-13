@@ -26,23 +26,27 @@ const HomeScreen = ({ navigation, taskList, dispatch }) => {
   
   <View style={styles.container}>
 
+    <View>
     <TextInput
     term = {searchText}
     onChange = {setSearchText}
     />
-    <FlatList
-      data={taskList.filter((task) => filters.DateNameFilter(task, selectedDate, searchText))}
-      keyExtractor={(task) => task.id.toString()}
-      renderItem={({ item }) => {
-        return <TODOItem item={item} navigation={navigation} dispatch={dispatch}></TODOItem>;
-      }}
-    />
-    <TaskCalendar style={{flex:1}} 
-    selectedDate={selectedDate}
-    setSelectedDate={setSelectedDate}
-    taskList={taskList}/>
+      <FlatList style={styles.flatList}
+        data={taskList.filter((task) => filters.DateNameFilter(task, selectedDate, searchText))}
+        keyExtractor={(task) => task.id.toString()}
+        renderItem={({ item }) => {
+          return <TODOItem item={item} navigation={navigation} dispatch={dispatch}></TODOItem>;
+        }}
+      />
+    </View>
+    <View style={{alignContent:"flex-end"}}>
+      <TaskCalendar
+      selectedDate={selectedDate}
+      setSelectedDate={setSelectedDate}
+      taskList={taskList}/>
+    </View>
 
-    <FloatingButton
+    <FloatingButton   
       onPressAction={() => navigation.navigate(ScreenNames.NewTask)}
     />
   </View>
@@ -52,11 +56,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: 'flex-start',
+    justifyContent: "space-between",
     alignItems: "stretch",
     backgroundColor: Colours.Background,
-    minHeight: Dimensions.get('window').height,
   },
+  flatList: {
+    flexGrow:2,
+    flexShrink:0
+  }
 });
 
 const mapStateToProps = (state) =>{

@@ -8,11 +8,9 @@ export default FloatingButton = ( {onPressAction} ) => {
   }
 
      return (
-       <TouchableOpacity
+       <TouchableOpacity style={styles.TouchableOpacityStyle}
          activeOpacity={0.5}
-        //  onPress={FloatingButtonEvent}
          onPress={onPressAction}
-         style={styles.TouchableOpacityStyle}
        >
          <Image
            source={require("../assets/floatingButton.png")}
@@ -32,6 +30,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     right: 30,
     bottom: 30,
+    zIndex:2,
   },
   FloatingButtonStyle: {
     resizeMode: "contain",

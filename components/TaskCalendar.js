@@ -22,10 +22,8 @@ export default TaskCalendar = ({ taskList, selectedDate, setSelectedDate }) => {
 
 const styles = StyleSheet.create({
   Calendar: {
-    position: "absolute",
-    height: 380,
-    width: "100%",
-    left: 0,
-    bottom: 0,
+    zIndex:1,
+    flexShrink:1,
+    alignContent: "flex-start"
   },
 });
