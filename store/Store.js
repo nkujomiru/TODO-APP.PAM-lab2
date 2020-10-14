@@ -30,6 +30,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 const store = createStore(
     persistedReducer,
     applyMiddleware(
+      // Adds logging of every change in store, slightly useful if not debugging
       // createLogger(),
     ),
   );

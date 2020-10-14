@@ -5,7 +5,6 @@ import { Buffer } from 'buffer';
 global.Buffer = Buffer; // needs to be initialized
 
 const initialState = {
-//   taskList: [{ title: "TestPost", content: "testing...", id: 1 }],
   taskList: []
 };
 

@@ -30,6 +30,7 @@ export default CustomCalendar = ({onDayPressAction, onDayLongPressAction, marked
       enableSwipeMonths={true}
       // Handler which gets executed when visible month changes in calendar. Default = undefined
 
+      // TODO: future options
       //  onMonthChange={(month) => {
       //    console.log("month changed", month);
       //  }}

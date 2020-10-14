@@ -8,15 +8,13 @@ class NotificationHandler {
     await requestPermissions();
 
     let unixTimestamp = moment(`${date.dateString}`, 'YYYY-MM-DD').unix();
-    // console.log(unixTimestamp) 
-
     let notification = await Notifications.scheduleNotificationAsync({
       content: {
         title: `${title}`,
         body: `${content}`,
       },
-      // trigger: {unixTimestamp},
-      trigger: {seconds:1},
+      trigger: {unixTimestamp},
+      // trigger: {seconds:1},
     });
     console.log("Scheduled notification");
     
