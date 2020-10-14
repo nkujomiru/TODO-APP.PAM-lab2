@@ -19,7 +19,7 @@ const TODOItem = ({item, navigation, dispatch}) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              NotificationHandler.cancelNotification(task.notification)
+              NotificationHandler.cancelNotification(item.notification)
               dispatch(taskActions.deleteTask(item.id))
             } } >
           <Feather name="trash" style={styles.icon} color="#FF5500" />
